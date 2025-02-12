@@ -1,0 +1,10 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+<h2>{{ curso.nome }}</h2>
+<p><strong>Descrição:</strong> {{ curso.descricao }}</p>
+<p><strong>Data de Criação:</strong> {{ curso.data_criacao }}</p>
+
+<a href="{% url 'listar_cursos' %}" class="btn btn-primary">Voltar para a lista</a>
+<a href="{% url 'listar_matriculas' curso.id %}" class="btn btn-warning mt-3">Ver Matrículas</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+<h2>Matrículas no Curso: {{ curso.nome }}</h2>
+
+<h3>Alunos Matriculados:</h3>
+<ul class="list-group">
+    {% for matricula in matriculas %}
+        <li class="list-group-item">{{ matricula.aluno.nome }} - {{ matricula.aluno.email }}</li>
+    {% empty %}
+        <li class="list-group-item">Nenhum aluno matriculado ainda.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'listar_cursos' %}" class="btn btn-primary mt-3">Voltar para os cursos</a>
+{% endblock %}
