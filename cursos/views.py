@@ -1,19 +1,52 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Curso, Aluno, Matricula
 from .serializers import CursoSerializer, AlunoSerializer, MatriculaSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
+from .forms import MatriculaForm, AlunoForm
+from django.contrib import messages
+
+
+def listar_matriculas(request, curso_id):
+    curso = get_object_or_404(Curso, id=curso_id)
+    matriculas = Matricula.objects.filter(curso=curso)
+    return render(request, "cursos/matriculas.html", {"curso": curso, "matriculas": matriculas})
+
+# View para cadastrar um novo aluno
+def cadastrar_aluno(request):
+    if request.method == "POST":
+        form = AlunoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Aluno cadastrado com sucesso!")
+            form = AlunoForm()  # Reseta o formulário
+    else:
+        form = AlunoForm()
+
+    return render(request, "cadastrar_aluno.html", {"form": form})
+
+def cadastrar_matricula(request):
+    if request.method == "POST":
+        form = MatriculaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Matrícula cadastrada com sucesso!")
+            form = MatriculaForm()  # Limpa o formulário após salvar
+    else:
+        form = MatriculaForm()
+
+    return render(request, "cadastrar_matricula.html", {"form": form})
 
 # Página inicial
 def home(request):
-    return HttpResponse("Bem-vindo à plataforma de cursos!")
+    return render(request, 'home.html')
 
 # Listar cursos
 def listar_cursos(request):
     cursos = Curso.objects.all()
-    return render(request, "cursos/cursos.html", {"cursos": cursos})
+    return render(request, "cursos.html", {"cursos": cursos})
 
 # Detalhes de um curso específico
 def detalhes_curso(request, curso_id):

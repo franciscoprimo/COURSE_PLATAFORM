@@ -1,4 +1,4 @@
-{% extends "cursos/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <h2>{{ curso.nome }}</h2>
@@ -8,3 +8,10 @@
 <a href="{% url 'listar_cursos' %}" class="btn btn-primary">Voltar para a lista</a>
 <a href="{% url 'listar_matriculas' curso.id %}" class="btn btn-warning mt-3">Ver Matrículas</a>
 {% endblock %}
+
+<div class="course-detail">
+    <h2>{{ curso.nome }}</h2>
+    <p>{{ curso.descricao }}</p>
+    <p>Carga horária: {{ curso.carga_horaria }} horas</p>
+</div>
+<a href="{% url 'listar_cursos' %}" class="back-link">Voltar</a>

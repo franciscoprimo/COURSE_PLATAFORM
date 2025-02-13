@@ -12,8 +12,9 @@ router.register(r'matriculas', MatriculaViewSet)  # Rota para as matrículas
 # Adiciona as URLs
 urlpatterns = [
     path('', include(router.urls)),  # Use o prefixo vazio aqui
-    path("cursos/", listar_cursos, name = "listar_cursos"),
+    path("listar/", listar_cursos, name = "listar_cursos"),
     path("cursos/<int:curso_id>/", detalhes_curso, name="detalhes_curso"),
     path("cursos/<int:curso_id>/matriculas/", listar_matriculas, name="listar_matriculas"),
     path('api/alunos/<int:pk>/matriculas/', ListaMatriculasPorAluno.as_view(), name='aluno-matriculas'),
+    
 ]
