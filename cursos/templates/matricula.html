@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Matrículas para o curso: {{ curso.nome }}</h2>
+
+    {% if matriculas %}
+        <ul class="list-group">
+            {% for matricula in matriculas %}
+                <li class="list-group-item">
+                    Aluno: <strong>{{ matricula.aluno.nome }}</strong> - Matrícula feita em {{ matricula.data_matricula }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma matrícula encontrada para este curso.</p>
+    {% endif %}
+
+    <a href="{% url 'listar_cursos' %}" class="btn btn-primary mt-3">Voltar para a lista de cursos</a>
+{% endblock %}

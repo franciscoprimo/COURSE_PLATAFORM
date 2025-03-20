@@ -1,0 +1,1 @@
+console.log("plataforma de cuross carregada!");
